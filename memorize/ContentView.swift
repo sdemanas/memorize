@@ -10,30 +10,35 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         HStack {
-            CardView(isFaceUp: false)
-            CardView(isFaceUp: true)
+            let emojis = ["💃","❤️","😘","☺️","🙈"]
+            ForEach(emojis.indices, id: \.self) { index in
+                CardView(content: emojis[index], isFaceUp: false)
+            }
         }
         .foregroundColor(.orange)
         .padding()
     }
 }
 
-struct CardView: View {  
-    var isFaceUp: Bool = false
+struct CardView: View {
+    let content: String
+    @State var isFaceUp = false
+    
     var body: some View {
-        ZStack (content: {
+        ZStack {
+            let base = RoundedRectangle(cornerRadius: 12)
             if isFaceUp {
-                RoundedRectangle(cornerRadius: 12)
-                    .foregroundColor(.blue)
-                RoundedRectangle(cornerRadius: 12)
-                    .strokeBorder(lineWidth: 2)
-                Text("Hi").font(.largeTitle).padding()
+                base.foregroundColor(.blue)
+                base.strokeBorder(lineWidth: 2)
+                Text(content).font(.largeTitle).padding()
             }
             else {
-                RoundedRectangle(cornerRadius: 12)
-                    .foregroundColor(.yellow)
+                base.foregroundColor(.yellow)
             }
-        })
+        }.onTapGesture {
+            isFaceUp.toggle()
+            print("faceflip")
+        }
     }
 }
 
