@@ -1,2 +1,2 @@
 # memorize
-Memorize is a fun learning app on ios
+Memorize is a fun learning app for ios
